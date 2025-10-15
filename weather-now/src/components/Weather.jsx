@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { fetchFosterCard, fetchWeather } from "../services/WeatherService";
 import ForcastCard from "./ForcastCard";
+import { useEffect } from "react";
  
 const Weather = () => {
 const [city , setCity ] = useState("");
@@ -8,6 +9,16 @@ const [weather, setWeather ] = useState(null);
 const [Forcast, setForcast] = useState([]);
 const [loading, setLoading] = useState(false);
 const [error, setError] = useState("");
+const [recentCities, setRecentCities] = useState([]);
+
+
+
+// Load saved cities from localStorage when the app first runs
+  useEffect(() => {
+    const savedCities = JSON.parse(localStorage.getItem("recentCities")) || [];
+    setRecentCities(savedCities);
+  }, [])
+
 
 // This will handle the search when a user searches for a city
 const handleSearch = async () => {
@@ -18,6 +29,7 @@ const handleSearch = async () => {
     setWeather(null);
     setError("");
 
+ 
 
 
 
@@ -42,10 +54,22 @@ const handleSearch = async () => {
       );
       setForcast(dailyData);
 
+
+      if(city) {
+
+    //This allows the recent search to be on top and avoids duplicate and saves the last 5 searches
+    const updatedCities = [city, ...recentCities.filter(c => c !== city)].slice(0, 5);
+    setRecentCities(updatedCities);
+    localStorage.setItem("recentCities", JSON.stringify(updatedCities));
+  }
+
+
     } else {
         setError("Could not fetch forecast data.");  // this error will display if the forcast data couldnt be searched 
       }
     }
+
+    
     
     catch (err) {
       console.error("Error fetching Data:", err);
@@ -55,8 +79,8 @@ const handleSearch = async () => {
       setLoading(false); //This sets the loading to false to stop
     }
   };
-
-
+    
+  
 
 return (
   <div>
@@ -64,7 +88,7 @@ return (
   {/* //This is where the actual form logic is placed */}
   <input
      type="text"
-     placeholder="Enter City"
+     placeholder="Search for city or airport"
      value={city}
      // This triggers whenever the user types
      onChange = { (e) => setCity(e.target.value) } 
@@ -84,6 +108,37 @@ return (
     <button onClick={handleSearch}>
     {loading ? "loading..." : "Search"}
       </button>
+    
+
+    {/* This displays the recent cities */}
+      {recentCities.length > 0 && (
+  <div>
+    <h3>Recent Searches</h3>
+    <div>
+      {recentCities.map((cityName, index) => (
+        <button
+          key={index}
+          onClick={() => {
+            setCity(cityName);
+            handleSearch(cityName); // call search directly when clicked
+          }}
+        >
+          {cityName}
+        </button>
+      ))}
+    </div>
+  </div>
+)}
+
+<button
+  onClick={() => {
+    setRecentCities([]);
+    localStorage.removeItem("recentCities");
+  }}
+  className="text-sm text-red-500 mt-2 hover:underline"
+>
+  Clear history
+</button>
      
      {/* //This displays the error message */}
       {error && <p>{error}</p>}
@@ -94,7 +149,7 @@ return (
         <div>
         <h2>{weather.name}</h2>
         <h2>{weather.weather[0].description}</h2>
-        <p>{weather.main.temp}°C</p>
+        <p>Feels like {Math.round(weather.main.temp)}°C</p>
         </div>
       ) }
 
@@ -105,9 +160,9 @@ return (
    {Forcast.map ((item, index) => (
     <ForcastCard 
     key={index}
-    day={new Date(item.dt_txt).toLocaleDateString("en-US", { weekday: "long" })} //This changes the date to readable format
+    day={new Date(item.dt_txt).toLocaleDateString("en-US", { weekday: "long" })} //This changes the array string to a single day
     temp={Math.round(item.main.temp)} // It converts the values from decimal to actual numbers
-    desc={item.weather[0].description} // This gets the main main condition in a mixed array  
+    desc={item.weather[0].description} // This gets the main weather condition 
     />
    ))}
     </div>
