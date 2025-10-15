@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { fetchFosterCard, fetchUVIndex, fetchWeather } from "../services/WeatherService";
+import { fetchFosterCard, fetchWeather } from "../services/WeatherService";
 import ForcastCard from "./ForcastCard";
 import { useEffect } from "react";
  
@@ -191,11 +191,6 @@ return (
       <div className="text-center">
         <p>🌬 Wind</p>
         <p>{Math.round(weather.wind.speed)} m/s</p>
-      </div>
-
-      <div className="text-center">
-        <p>☀️ UV Index</p>
-        <p>{uvIndex !== null ? uvIndex.toFixed(1) : "Loading..."}</p>
       </div>
     </div>
   </div>
