@@ -14,6 +14,13 @@ export const fetchWeather = async (city) => {
    // this simply returns the data
    return response.data;
 };
+ 
+export const fetchFosterCard = async(city) => {
+    const response = await axios.get( BASE_URL, {
+        params:{ q:city, appid: API_KEY, units:"metrics"},
+    });
 
+    return response.data;
+};
 
 
