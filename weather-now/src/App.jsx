@@ -26,7 +26,15 @@ return (
      placeholder="Enter City"
      value={city}
      // This triggers whenever the user types
-     onChange = { (e) => setCity(e.target.value) } /> 
+     onChange = { (e) => setCity(e.target.value) } 
+
+     //This add UI for which when a user clicks on enter
+     onKeyDown={(e) => {
+      if(e.key === "Enter") {
+        handleSearch()
+      }
+     }}
+     /> 
      
      {/* // this gives the app the typed text and it is saved in setCity */}
     
