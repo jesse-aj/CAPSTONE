@@ -1,39 +1,60 @@
 import { useState } from "react";
 import { fetchFosterCard, fetchWeather } from "../services/WeatherService";
+import ForcastCard from "./ForcastCard";
  
 const Weather = () => {
 const [city , setCity ] = useState("");
 const [weather, setWeather ] = useState(null);
-const [Foster, setFoster ] = useState([])
+const [Forcast, setForcast] = useState([]);
+const [loading, setLoading] = useState(false);
+const [error, setError] = useState("");
 
 // This will handle the search when a user searches for a city
 const handleSearch = async () => {
-    if (!city.trim()) {
-        alert("Please enter city name");
-        return;
-    }
+    if (!city.trim()) return;
+
+    setLoading(true);
+    setForcast([]);
+    setWeather(null);
+    setError("");
+
+
+
+
   try 
   {
     // This fetches the weather for the city and stores it in setWeather
     const data = await fetchWeather(city);
     setWeather(data);
+
+
     // Now this fetches the 5 day forecast
-    const fosterData = await fetchFosterCard(city);
-          // Filter forecast to get roughly one forecast per day (e.g. every 24h)
+    const forcastData = await fetchFosterCard(city);
 
-const dailyData = fosterData.list.filter((item) =>
-  item.dt_txt.includes ("12:00:00")
-)
-setFoster(dailyData);
-  }
-//This will catch errors during fetching
- catch (error) {
-    console.error ("Error fetching Data", error)
-     setWeather(null);
-     setFoster([]);
- };
 
-}
+// checks if dorecast if valid before using it
+
+ if (forcastData && forcastData.list) {
+
+    // this filters throught the data and fetch specific times
+      const dailyData = forcastData.list.filter((item) =>
+        item.dt_txt.includes("12:00:00")
+      );
+      setForcast(dailyData);
+
+    } else {
+        setError("Could not fetch forecast data.");  // this error will display if the forcast data couldnt be searched 
+      }
+    }
+    
+    catch (err) {
+      console.error("Error fetching Data:", err);
+      setError("City not found.");
+    } 
+    finally {
+      setLoading(false); //This sets the loading to false to stop
+    }
+  };
 
 
 
@@ -60,8 +81,12 @@ return (
      {/* // this gives the app the typed text and it is saved in setCity */}
     
 
-    <button onClick={handleSearch}> Search
+    <button onClick={handleSearch}>
+    {loading ? "loading..." : "Search"}
       </button>
+     
+     {/* //This displays the error message */}
+      {error && <p>{error}</p>}
 
        
       {/* // Now we show the results */}
@@ -73,9 +98,23 @@ return (
         </div>
       ) }
 
-  </div>
+ 
+{/* This Displays the the 5 day forcast */}
+  { Forcast.lengh > 0 && (
+    <div>
+   {Forcast.map ((item, index) => (
+    <ForcastCard 
+    key={index}
+    day={new Date(item.dt_txt).toLocaleDateString("en-US", { weekday: "long" })} //This changes the date to readable format
+    temp={Math.round(item.main.temp)} // It converts the values from decimal to actual numbers
+    desc={item.weather[0].description} // This gets the main main condition in a mixed array  
+    />
+   ))}
+    </div>
+  )}
+   </div>
 );
-}
+};
 
 
 export default Weather;

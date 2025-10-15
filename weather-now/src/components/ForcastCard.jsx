@@ -1,4 +1,4 @@
-export default function setFosterCard ({day, temp, desc }) {
+export default function ForcastCard ({day, temp, desc }) {
     return(
         <div>
         <p>{day}</p>
