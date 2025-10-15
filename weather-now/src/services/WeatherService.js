@@ -17,7 +17,7 @@ export const fetchWeather = async (city) => {
  
 export const fetchFosterCard = async(city) => {
     const response = await axios.get("https://api.openweathermap.org/data/2.5/forecast", {
-        params:{ q:city, appid: API_KEY, units:"metrics"},
+        params:{ q:city, appid: API_KEY, units:"metric"},
     });
 
     return response.data;

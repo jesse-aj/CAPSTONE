@@ -100,7 +100,7 @@ return (
 
  
 {/* This Displays the the 5 day forcast */}
-  { Forcast.lengh > 0 && (
+  { Forcast.length > 0 && (
     <div>
    {Forcast.map ((item, index) => (
     <ForcastCard 
