@@ -23,16 +23,22 @@ export const fetchFosterCard = async(city) => {
 };
 
 export const fetchUVIndex = async (lat, lon) => {
-  const response = await axios.get("https://api.openweathermap.org/data/2.5/onecall", {
-    params: {
-      lat,
-      lon,
-      exclude: "minutely,hourly,daily,alerts",
-      appid: API_KEY,
-      units: "metric",
-    },
-  });
-  return response.data.current.uvi;
+  try {
+    const response = await axios.get("https://api.openweathermap.org/data/2.5/onecall", {
+      params: {
+        lat,
+        lon,
+        exclude: "minutely,hourly,daily,alerts",
+        appid: API_KEY,
+        units: "metric",
+      },
+    });
+    const uvi = response.data && response.data.current && response.data.current.uvi;
+    return typeof uvi === "number" ? uvi : null;
+  } catch (err) {
+    console.error("Error fetching UV index:", err);
+    return null;
+  }
 };
 
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { fetchFosterCard, fetchWeather } from "../services/WeatherService";
+import { fetchFosterCard, fetchUVIndex, fetchWeather } from "../services/WeatherService";
 import ForcastCard from "./ForcastCard";
 import { useEffect } from "react";
  
@@ -37,11 +37,11 @@ const handleSearch = async () => {
   try 
   {
     // This fetches the weather for the city and stores it in setWeather
-    const data = await fetchWeather(city);
-    setWeather(data);
+    const Weatherdata = await fetchWeather(city);
+    setWeather(Weatherdata);
    
     //This renders the UV index
-     const { lat, lon } = weatherData.coord;
+     const { lat, lon } = Weatherdata.coord;
      const uv = await fetchUVIndex(lat, lon);
      setUVIndex(uv);
 
@@ -168,12 +168,14 @@ return (
 
        
       {/* // Now we show the results */}
-      {weather && (
-  <div className="bg-white shadow-md rounded-md p-4 mt-4 text-gray-700">
-    <h2 className="text-2xl font-semibold">
-      {weather.name}, {weather.sys.country}
+{weather && (
+  <div>
+    <h2>
+        {/* This Displays the temperature and country */}
+      {weather.name}, {weather.sys.country} 
+      
     </h2>
-    <p className="text-lg text-gray-600">
+    <p>
       {new Date((weather.dt + weather.timezone) * 1000).toLocaleString("en-US", {
         weekday: "long",
         hour: "2-digit",
@@ -181,22 +183,25 @@ return (
       })}
     </p>
 
-    <div className="flex flex-wrap justify-around mt-4">
+    <div>
       <div className="text-center">
-        <p className="font-semibold">🌡 Temp</p>
+        <p>🌡 Temp</p>
         <p>{Math.round(weather.main.temp)}°C</p>
       </div>
+
       <div className="text-center">
-        <p className="font-semibold">💧 Humidity</p>
+        <p>💧 Humidity</p>
         <p>{weather.main.humidity}%</p>
       </div>
+
       <div className="text-center">
-        <p className="font-semibold">🌬 Wind</p>
+        <p>🌬 Wind</p>
         <p>{Math.round(weather.wind.speed)} m/s</p>
       </div>
+
       <div className="text-center">
-        <p className="font-semibold">☀️ UV Index</p>
-        <p>{uvIndex !== null ? uvIndex.toFixed(1) : "Loading..."}</p>
+        <p>☀️ UV Index</p>
+        <p>{uvIndex === null ? "N/A" : Number(uvIndex).toFixed(1)}</p>
       </div>
     </div>
   </div>
