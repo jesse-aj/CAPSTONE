@@ -10,6 +10,7 @@ const [Forcast, setForcast] = useState([]);
 const [loading, setLoading] = useState(false);
 const [error, setError] = useState("");
 const [recentCities, setRecentCities] = useState([]);
+const [uvIndex, setUVIndex] =useState(null);
 
 
 
@@ -38,6 +39,11 @@ const handleSearch = async () => {
     // This fetches the weather for the city and stores it in setWeather
     const data = await fetchWeather(city);
     setWeather(data);
+   
+    //This renders the UV index
+     const { lat, lon } = weatherData.coord;
+     const uv = await fetchUVIndex(lat, lon);
+     setUVIndex(uv);
 
 
     // Now this fetches the 5 day forecast
