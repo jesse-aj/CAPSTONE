@@ -86,6 +86,23 @@ const handleSearch = async () => {
     }
   };
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
 
 return (
@@ -151,14 +168,39 @@ return (
 
        
       {/* // Now we show the results */}
-      { weather && (
-        <div>
-        <h2>{weather.name}</h2>
-        <h2>{weather.weather[0].description}</h2>
-        <p>Feels like {Math.round(weather.main.temp)}°C</p>
-        </div>
-      ) }
+      {weather && (
+  <div className="bg-white shadow-md rounded-md p-4 mt-4 text-gray-700">
+    <h2 className="text-2xl font-semibold">
+      {weather.name}, {weather.sys.country}
+    </h2>
+    <p className="text-lg text-gray-600">
+      {new Date((weather.dt + weather.timezone) * 1000).toLocaleString("en-US", {
+        weekday: "long",
+        hour: "2-digit",
+        minute: "2-digit",
+      })}
+    </p>
 
+    <div className="flex flex-wrap justify-around mt-4">
+      <div className="text-center">
+        <p className="font-semibold">🌡 Temp</p>
+        <p>{Math.round(weather.main.temp)}°C</p>
+      </div>
+      <div className="text-center">
+        <p className="font-semibold">💧 Humidity</p>
+        <p>{weather.main.humidity}%</p>
+      </div>
+      <div className="text-center">
+        <p className="font-semibold">🌬 Wind</p>
+        <p>{Math.round(weather.wind.speed)} m/s</p>
+      </div>
+      <div className="text-center">
+        <p className="font-semibold">☀️ UV Index</p>
+        <p>{uvIndex !== null ? uvIndex.toFixed(1) : "Loading..."}</p>
+      </div>
+    </div>
+  </div>
+)}
  
 {/* This Displays the the 5 day forcast */}
   { Forcast.length > 0 && (
