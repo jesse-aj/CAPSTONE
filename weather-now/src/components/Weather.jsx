@@ -89,19 +89,36 @@ const Weather = () => {
   };
 
 
-  // This will handle the refresh button
+  // This will handle the refresh button for both forcast and deafault Weather
+const handleRefresh = async () => {
+  setLoading(true);
+  setError("");
+  try {
+    const currentCity = weather?.name || "Takoradi";
+    const data = await fetchWeather(currentCity);
+    const forcastData = await fetchFosterCard(currentCity);
 
-  const handleRefresh = async () => {
-    setLoading(true);
-    try {
-        const data = await fetchWeather ("Takoradze");
-        setWeather(data);
-    } catch(err) {
-        setError("Failed to refresh weather data")
-    } finally {
-        setLoading(false);
+    setWeather(data);
+    if (forcastData && forcastData.list) {
+      const dailyData = forcastData.list.filter((item) =>
+        item.dt_txt.includes("12:00:00")
+      );
+      setForcast(dailyData);
     }
-  };
+  } catch (err) {
+    console.error("Refresh error:", err);
+    setError("Failed to refresh weather data");
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+
+
+
+
+
 
 
 
