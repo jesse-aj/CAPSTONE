@@ -16,7 +16,28 @@ const Weather = () => {
   const [error, setError] = useState("");
   const [recentCities, setRecentCities] = useState([]);
 
-  //This allows recent cities to render when the app starts
+  //This renders when the app starts 
+
+  useEffect (() => {
+    const loadDefaultWeather = async () => {
+        try {
+            const data = await fetchWeather("Takoradze");   // This is the default location 
+            setWeather(data);
+
+        } catch (err) {
+            setError("Failed to fetch weather data ");
+
+        } finally {
+            setLoading(false);
+        }
+ 
+  };
+
+  loadDefaultWeather();
+}, []);
+
+
+   //This allows recent cities to render when the app starts
 
   useEffect(() => {
     const savedCities = JSON.parse(localStorage.getItem("recentCities")) || [];
@@ -67,6 +88,23 @@ const Weather = () => {
     }
   };
 
+
+  // This will handle the refresh button
+
+  const handleRefresh = async () => {
+    setLoading(true);
+    try {
+        const data = await fetchWeather ("Takoradze");
+        setWeather(data);
+    } catch(err) {
+        setError("Failed to refresh weather data")
+    } finally {
+        setLoading(false);
+    }
+  };
+
+
+
   return (
     <div>
       <h1>Weather Dashboard</h1>
@@ -84,6 +122,15 @@ const Weather = () => {
 
                {/* This displays the main weather*/}
       {weather && <WeatherCard weather={weather} />}
+
+      {/* Button for Refresh */}
+
+      <button
+              onClick={handleRefresh}
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                   >
+                 Refresh
+             </button>
                     
                 {/* This displays the 5day forcast weather */}
       {Forcast.length > 0 && (
@@ -103,7 +150,7 @@ const Weather = () => {
 
       )}
     </div>
-    
+
   );
 };
 
