@@ -24,7 +24,20 @@ const Weather = () => {
             const data = await fetchWeather("Takoradze");   // This is the default location 
             setWeather(data);
 
+                 //This also shows the 5 day forcaste of the defaukt weather
+             const forcastData = await fetchFosterCard(defaultCity);
+            if (forcastData && forcastData.list) {
+            const dailyData = forcastData.list.filter((item) =>
+           item.dt_txt.includes("12:00:00")
+                );
+           setForcast(dailyData);
+            } else {
+           setError("Could not fetch forecast data.");
+           }
+
+               //Handles errror when fetching for deafult weather
         } catch (err) {
+            console.error("Error fetching default data:", err);
             setError("Failed to fetch weather data ");
 
         } finally {
