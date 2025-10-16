@@ -51,21 +51,26 @@ const Weather = () => {
         const updatedCities = [city, ...recentCities.filter((c) => c !== city)].slice(0, 5);
         setRecentCities(updatedCities);
         localStorage.setItem("recentCities", JSON.stringify(updatedCities));
-      } else {
+      }  
+      // This finally handles error when forecast couldnt be searched
+      else {
         setError("Could not fetch forecast data.");
       }
     } catch (err) {
       console.error("Error fetching Data:", err);
       setError("City not found.");
-    } finally {
+    } 
+    //This stops loading from runnin
+
+    finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="max-w-lg mx-auto p-4">
-      <h1 className="text-2xl font-bold text-center mb-4">Weather Dashboard</h1>
-
+    <div>
+      <h1>Weather Dashboard</h1>
+   {/* This manages and display user input and search logic through these props. */}
       <SearchBar
         city={city}
         setCity={setCity}
@@ -73,14 +78,16 @@ const Weather = () => {
         recentCities={recentCities}
         setRecentCities={setRecentCities}
       />
-
-      {loading && <p className="text-blue-500 text-center">Loading...</p>}
+           {/* Renders the loading */}
+      {loading && <p>Loading...</p>}
       {!loading && <ErrorMessage message={error} />}
 
+               {/* This displays the main weather*/}
       {weather && <WeatherCard weather={weather} />}
-
+                    
+                {/* This displays the 5day forcast weather */}
       {Forcast.length > 0 && (
-        <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-2">
+        <div>
           {Forcast.map((item, index) => (
             <ForcastCard
               key={index}
@@ -91,9 +98,12 @@ const Weather = () => {
               desc={item.weather[0].description}
             />
           ))}
+
         </div>
+
       )}
     </div>
+    
   );
 };
 

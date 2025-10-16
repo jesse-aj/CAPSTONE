@@ -1,7 +1,6 @@
-// src/components/SearchBar.jsx
-import React from "react";
 
-const SearchBar = ({ city, setCity, handleSearch, recentCities, setRecentCities }) => {
+
+const SearchBar = ({ city, setCity, handleSearch, recentCities, setRecentCities }) => { //This a props taken from Weather
   return (
     <div>
 
