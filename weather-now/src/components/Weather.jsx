@@ -15,17 +15,24 @@ const Weather = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [recentCities, setRecentCities] = useState([]);
+  const [units, SetUnits] = useState("metric");
+
+  //This handles the toggle 
+
+  const handleUnitToggle = () => {
+  SetUnits(prev => (prev === "metric" ? "imperial" : "metric"));
+};
 
   //This renders when the app starts 
 
   useEffect (() => {
     const loadDefaultWeather = async () => {
         try {
-            const data = await fetchWeather("Takoradze");   // This is the default location 
+            const data = await fetchWeather("Takoradze, units");   // This is the default location and applieas the unit selected
             setWeather(data);
 
-                 //This also shows the 5 day forcaste of the defaukt weather
-             const forcastData = await fetchFosterCard(defaultCity);
+                 //This also shows the 5 day forcaste of the default weather which is Takoradze
+             const forcastData = await fetchFosterCard("Takoradze, units");
             if (forcastData && forcastData.list) {
             const dailyData = forcastData.list.filter((item) =>
            item.dt_txt.includes("12:00:00")
@@ -47,7 +54,7 @@ const Weather = () => {
   };
 
   loadDefaultWeather();
-}, []);
+}, [city, units]);
 
 
    //This allows recent cities to render when the app starts
@@ -68,12 +75,12 @@ const Weather = () => {
 
               // This fetches the weather info from the API and stores it setWeather
     try {
-      const Weatherdata = await fetchWeather(city);
+      const Weatherdata = await fetchWeather(city, units);
       setWeather(Weatherdata);
              
 
            // This also fetches for the 5day forcast and stores it in setForcast, it also filters to makes it return a weather for a day at 12 not the default 3hours
-      const forcastData = await fetchFosterCard(city);
+      const forcastData = await fetchFosterCard(city, units);
       if (forcastData && forcastData.list) {
         const dailyData = forcastData.list.filter((item) =>
           item.dt_txt.includes("12:00:00")
@@ -131,13 +138,22 @@ const handleRefresh = async () => {
 
 
 
-
-
-
-
   return (
     <div>
+       
+
       <h1>Weather Dashboard</h1>
+
+
+             {/* This button allows users to switch between Fahrenheit and Celcius */}
+
+            <button
+             onClick={handleUnitToggle}
+             className="bg-blue-500 text-white px-4 py-2 rounded-md"
+             > 
+                Switch to {units === "metric" ? "°F" : "°C"}
+                 </button> 
+
    {/* This manages and display user input and search logic through these props. */}
       <SearchBar
         city={city}
@@ -151,7 +167,7 @@ const handleRefresh = async () => {
       {!loading && <ErrorMessage message={error} />}
 
                {/* This displays the main weather*/}
-      {weather && <WeatherCard weather={weather} />}
+      {weather && <WeatherCard weather={weather} units={units}/>}
 
       {/* Button for Refresh */}
 
@@ -173,6 +189,7 @@ const handleRefresh = async () => {
               })}
               temp={Math.round(item.main.temp)}
               desc={item.weather[0].description}
+              units={units}
             />
           ))}
 

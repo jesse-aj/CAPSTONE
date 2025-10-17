@@ -1,6 +1,7 @@
 
 
-const WeatherCard = ({ weather }) => {
+const WeatherCard = ({ weather, units}) => {
+
   return (
     <div>
       <h2>
@@ -19,7 +20,7 @@ const WeatherCard = ({ weather }) => {
       <div>
         <div>
           <p>Temp</p>
-          <p>Feels like {Math.round(weather.main.temp)}°C</p>
+          <p>Feels like {Math.round(weather.main.temp)}°{units === "metric" ? "C" : "F"}</p>
         </div>
         <div>
           <p> Humidity</p>
@@ -27,7 +28,7 @@ const WeatherCard = ({ weather }) => {
         </div>
         <div>
           <p> Wind</p>
-          <p>{Math.round(weather.wind.speed)} m/s</p>
+          <p>{Math.round(weather.wind.speed)}{units ==="metric" ? "m/s" : "mph"}</p>
         </div>
       </div>
     </div>

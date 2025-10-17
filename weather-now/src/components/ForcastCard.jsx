@@ -1,8 +1,8 @@
-export default function ForcastCard ({day, temp, desc }) {
+export default function ForcastCard ({day, temp, desc, units }) {
     return(
         <div>
         <p>{day}</p>
-        <p>{temp}°C</p>
+        <p>{temp}°{units === "metric" ? "C" : "F"}</p>
         <p>{desc}</p>
 
 
