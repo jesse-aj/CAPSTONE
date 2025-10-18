@@ -7,9 +7,10 @@ const LandingPage = () => {
     navigate("/weather");  // this moves to the  main app
   };
   return (
-  <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-background-dark to-slate-900 text-white p-6 font-display">
+  <div className="flex min-h-screen flex-col items-center 
+  justify-center bg-gradient-to-br from-background-dark to-slate-900 text-white p-6 font-display">
       <div className="text-center">
-        {/* Weather SVG Icon */}
+        {/* Weather Icon */}
         <div className="mb-8">
           <svg
             className="mx-auto h-24 w-24 text-primary"
@@ -17,6 +18,8 @@ const LandingPage = () => {
             viewBox="0 0 48 48"
             xmlns="http://www.w3.org/2000/svg"
           >
+
+            {/* Used Vactor Drawing instructions exported from Stich desgns */}
             <path
               d="M39.5563 34.1455V13.8546C39.5563 15.708 36.8773 17.3437 32.7927 18.3189C30.2914 18.916 27.263 19.2655 24 19.2655C20.737 19.2655 17.7086 18.916 15.2073 18.3189C11.1227 17.3437 8.44365 15.708 8.44365 13.8546V34.1455C8.44365 35.9988 11.1227 37.6346 15.2073 38.6098C17.7086 39.2069 20.737 39.5564 24 39.5564C27.263 39.5564 30.2914 39.2069 32.7927 38.6098C36.8773 37.6346 39.5563 35.9988 39.5563 34.1455Z"
               fill="currentColor"
@@ -42,8 +45,9 @@ const LandingPage = () => {
           onClick={handleStart}
           className="rounded-full bg-primary/80 px-8 py-4 text-lg font-bold text-white shadow-lg shadow-primary/30 transition-all hover:bg-primary hover:shadow-xl hover:shadow-primary/40 focus:outline-none focus:ring-4 focus:ring-primary/50"
         >
-          Let&apos;s see what is happening in the skies
-        </button>
+          Let&apos;s see what is happening in the skies   
+           {/*Appos simply means apostrophe  */}
+        </button>    
       </div>
     </div>
   );
