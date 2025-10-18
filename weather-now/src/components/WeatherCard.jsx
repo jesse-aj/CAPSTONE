@@ -3,7 +3,7 @@ const WeatherCard = ({ weather, units }) => {
   const windUnit = units === "metric" ? "m/s" : "mph";
 
   return (
-    <div className="flex justify-start flex-col  rounded-3xl bg-white/40 dark:bg-black/30 backdrop-blur-xl shadow-2xl p-10 w-full max-w-5xl min-h-[500px] ml-0 text-gray-900 dark:text-white transition-all duration-500">
+    <div className="flex justify-between flex-col  rounded-3xl bg-white/40 dark:bg-black/30 backdrop-blur-xl shadow-2xl p-10 w-full max-w-5xl min-h-[700px] ml-0 text-gray-900 dark:text-white transition-all duration-500">
 
 
       {/* City and Time  of Location*/}
@@ -30,7 +30,7 @@ const WeatherCard = ({ weather, units }) => {
         <p className="text-3xl font-medium capitalize">
           {weather.weather[0].description}
         </p>
-        <p className="text-xl text-gray-700 dark:text-gray-300">
+        <p className="text-xl text-gray-700 dark:text-gray-300 mb-12">
           Feels like {Math.round(weather.main.feels_like)}{tempUnit}
         </p>
       </div>
