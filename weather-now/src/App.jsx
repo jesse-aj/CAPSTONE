@@ -1,12 +1,22 @@
 
-import ThemeToggle from "./components/ThemeToggle";
-import Weather from "./components/Weather";
 
-function App() {
+import Weather from "./components/Weather";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+
+
+
+const App= () => {
   return (
-  <Weather/>
- 
-  )
-}
+    <Router>
+      <Routes>
+
+        <Route path="/" element={<LandingPage/>} />
+        <Route path= "/weather" element = {<Weather/>} />
+
+
+  </Routes>
+  </Router>
+  );
+};
 
 export default App;
