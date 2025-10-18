@@ -172,12 +172,7 @@ const handleRefresh = async () => {
       {!loading && <ErrorMessage message={error} />}
 
                {/* This displays the main weather*/}
-
-        
-        
-                {weather && <WeatherCard weather={weather} units={units}/>}
-            
-             
+      {weather && <WeatherCard weather={weather} units={units}/>}
       {/* Button for Refresh */}
 
       <button

@@ -3,12 +3,15 @@ const WeatherCard = ({ weather, units }) => {
   const windUnit = units === "metric" ? "m/s" : "mph";
 
   return (
-    <div className="flex flex-col justify-between rounded-3xl bg-white/40 dark:bg-black/30 backdrop-blur-xl shadow-2xl p-10 w-full max-w-5xl min-h-[500px] mx-auto text-gray-900 dark:text-white transition-all duration-500">
+    <div className="flex justify-start flex-col  rounded-3xl bg-white/40 dark:bg-black/30 backdrop-blur-xl shadow-2xl p-10 w-full max-w-5xl min-h-[500px] ml-0 text-gray-900 dark:text-white transition-all duration-500">
+
+
       {/* City and Time  of Location*/}
       <div>
         <h1 className="text-5xl font-bold mb-2">
           {weather.name}, {weather.sys.country}
         </h1>
+        {/* This displays the time and date */}
         <p className="text-xl text-gray-700 dark:text-gray-300">
           {new Date((weather.dt + weather.timezone) * 1000).toLocaleString("en-US", {
             weekday: "long",
