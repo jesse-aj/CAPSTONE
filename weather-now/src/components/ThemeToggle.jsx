@@ -25,7 +25,7 @@ return (
     <div className="flex justify-end p-4">
     <button 
     onClick={()=> setDarkMode(!darkMode)}
-    className="p-2 rounded bg-gray-300 dark:bg-gray-700 text-black dark:text-white">
+    className="p-2 rounded-xl bg-gray-300 dark:bg-gray-700 text-black dark:text-white">
         {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
 
     </button>

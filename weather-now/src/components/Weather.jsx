@@ -152,7 +152,7 @@ const handleRefresh = async () => {
                <div className="flex justify-end items-center gap-4 p-4">
             <button
              onClick={handleUnitToggle}
-             className="bg-blue-500 text-white px-4 py-2 rounded-md"
+             className="bg-blue-500 text-white px-4 py-2 rounded-xl"
              > 
                 Switch to {units === "metric" ? "°F" : "°C"}
                  </button> 
@@ -166,7 +166,7 @@ const handleRefresh = async () => {
          <div className="flex flex-col items-center">
   <button
     onClick={handleRefresh}
-    className="bg-blue-500 text-white px-4 py-2 rounded-2xl hover:bg-blue-600 relative -top-2"
+    className="bg-blue-500 text-white px-4 py-2 rounded-xl hover:bg-blue-600 relative -top-2"
   >
     REFRESH
   </button>
@@ -182,7 +182,7 @@ const handleRefresh = async () => {
       {weather && <WeatherCard weather={weather} units={units}/>}
       {/* Button for Refresh */}
                     </div>
-     
+                                
 
                <div className=" w-[380px] h-full bg-white/60 dark:bg-white/10 backdrop-blur-2xl shadow-xl border-l border-gray-200 dark:border-gray-700 p-6 overflow-y-auto">
 
