@@ -29,11 +29,11 @@ const Weather = () => {
   useEffect (() => {
     const loadDefaultWeather = async () => {
         try {
-            const data = await fetchWeather("Takoradze, units");   // This is the default location and applieas the unit selected
+            const data = await fetchWeather("Accra, units");   // This is the default location and applies to the unit selected
             setWeather(data);
 
-                 //This also shows the 5 day forcaste of the default weather which is Takoradze
-             const forcastData = await fetchFosterCard("Takoradze, units");
+                 //This also shows the 5 day forcaste of the default weather which is Accra
+             const forcastData = await fetchFosterCard("Accra, units");
             if (forcastData && forcastData.list) {
             const dailyData = forcastData.list.filter((item) =>
            item.dt_txt.includes("12:00:00")
@@ -58,7 +58,7 @@ const Weather = () => {
 }, [city, units]);
 
 
-   //This allows recent cities to render when the app starts
+   //This allows recent cities to show when the app starts
 
   useEffect(() => {
     const savedCities = JSON.parse(localStorage.getItem("recentCities")) || [];
@@ -102,7 +102,7 @@ const Weather = () => {
       console.error("Error fetching Data:", err);
       setError("City not found.");
     } 
-    //This stops loading from runnin
+    //This stops loading from running
 
     finally {
       setLoading(false);
@@ -143,7 +143,7 @@ const handleRefresh = async () => {
     <div>
        <div className="bg-white text-black dark:bg-gray-900 dark:text-white p-4">
 
-      <h1>Weather Dashboard</h1>
+      <h1 className="text-5xl font-extrabold text-center text-blue-600 dark:text-blue-400 drop-shadow-lg tracking-wide">Weather Now</h1>
 
       {/* This displays the theme Toggle */}
 
@@ -159,15 +159,7 @@ const handleRefresh = async () => {
                 Switch to {units === "metric" ? "°F" : "°C"}
                  </button> 
 
-   {/* This manages and display user input and search logic through these props. */}
-      <SearchBar
-        city={city}
-        setCity={setCity}
-        handleSearch={handleSearch}
-        recentCities={recentCities}
-        setRecentCities={setRecentCities}
-      />
-
+   
        <button
               onClick={handleRefresh}
               className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
@@ -188,6 +180,16 @@ const handleRefresh = async () => {
      
 
                <div className=" w-[380px] h-full bg-white/60 dark:bg-white/10 backdrop-blur-2xl shadow-xl border-l border-gray-200 dark:border-gray-700 p-6 overflow-y-auto">
+
+               {/* This manages and display user input and search logic through these props. */}
+      <SearchBar
+        city={city}
+        setCity={setCity}
+        handleSearch={handleSearch}
+        recentCities={recentCities}
+        setRecentCities={setRecentCities}
+      />
+
                     
                 {/* This displays the 5day forcast weather  and maps through it*/}
      {Forcast.length > 0 && (
