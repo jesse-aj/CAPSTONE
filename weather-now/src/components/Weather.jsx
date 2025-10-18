@@ -167,42 +167,57 @@ const handleRefresh = async () => {
         recentCities={recentCities}
         setRecentCities={setRecentCities}
       />
-           {/* Renders the loading */}
-      {loading && <p>Loading...</p>}
-      {!loading && <ErrorMessage message={error} />}
 
-               {/* This displays the main weather*/}
-      {weather && <WeatherCard weather={weather} units={units}/>}
-      {/* Button for Refresh */}
-
-      <button
+       <button
               onClick={handleRefresh}
               className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
                    >
                  Refresh
              </button>
+
+           {/* Renders the loading */}
+      {loading && <p>Loading...</p>}
+      {!loading && <ErrorMessage message={error} />}
+
+               {/* This displays the main weather*/}
+               <div className="flex justify-between items-start w-screen h-screen bg-gray-50 dark:bg-gray-900 overflow-hidden">
+                    <div className="flex-1 p-10">
+      {weather && <WeatherCard weather={weather} units={units}/>}
+      {/* Button for Refresh */}
+                    </div>
+     
+
+               <div className=" w-[380px] h-full bg-white/60 dark:bg-white/10 backdrop-blur-2xl shadow-xl border-l border-gray-200 dark:border-gray-700 p-6 overflow-y-auto">
                     
-                {/* This displays the 5day forcast weather */}
-      {Forcast.length > 0 && (
-        <div>
-          {Forcast.map((item, index) => (
-            <ForcastCard
-              key={index}
-              day={new Date(item.dt_txt).toLocaleDateString("en-US", {
-                weekday: "long",
-              })}
-              temp={Math.round(item.main.temp)}
-              desc={item.weather[0].description}
-              units={units}
-            />
-          ))}
+                {/* This displays the 5day forcast weather  and maps through it*/}
+     {Forcast.length > 0 && (
+  <div className="bg-white/70 dark:bg-white/10 backdrop-blur-xl rounded-2xl p-4 shadow-lg w-full max-w-sm">
+    <h2 className="text-gray-800 dark:text-gray-100 font-semibold text-lg mb-4">
+      5-Day Forecast
+    </h2>
 
-        </div>
 
-      )}
+    <div className="space-y-5">
+      {Forcast.map((item, index) => (
+        <ForcastCard
+          key={index}    
+          day={new Date(item.dt_txt).toLocaleDateString("en-US", {weekday: "long",
+          })}
+          temp={Math.round(item.main.temp)}   
+          desc={item.weather[0].description}
+          units={units}
+     />
+      ))}
     </div>
+  </div>
+   
+     )}
 
-    </div>
+     </div>
+     </div>
+     
+   </div>
+   </div>
 
   );
 };
