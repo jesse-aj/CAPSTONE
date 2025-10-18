@@ -28,7 +28,7 @@ OpenWeatherMap API (Weather Data)
 
 Clone the repository:
 
-git clone https://github.com/yourusername/weather-app.git
+git clone https://github.com/jesse-aj/CAPSTONE/weather-now.git
 
 
 Navigate to the project folder:
