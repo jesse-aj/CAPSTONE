@@ -4,6 +4,7 @@ import ForcastCard from "./ForcastCard";
 import SearchBar from "./SearchBar";
 import WeatherCard from "./WeatherCard";
 import ErrorMessage from "./ErrorMessages";
+import ThemeToggle from "./ThemeToggle";
 
 
 
@@ -140,9 +141,13 @@ const handleRefresh = async () => {
 
   return (
     <div>
-       
+       <div className="bg-white text-black dark:bg-gray-900 dark:text-white p-4">
 
       <h1>Weather Dashboard</h1>
+
+      {/* This displays the theme Toggle */}
+
+      <ThemeToggle/>
 
 
              {/* This button allows users to switch between Fahrenheit and Celcius */}
@@ -196,6 +201,8 @@ const handleRefresh = async () => {
         </div>
 
       )}
+    </div>
+
     </div>
 
   );
