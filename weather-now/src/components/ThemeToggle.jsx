@@ -6,7 +6,7 @@ const ThemeToggle = () => {
     );
 
 
-//THis allows it to render on app starts
+//THis allows it to show on app starts
 useEffect( () => {
     if(darkMode) {
         document.documentElement.classList.add("dark") ;
@@ -26,7 +26,7 @@ return (
     <button 
     onClick={()=> setDarkMode(!darkMode)}
     className="p-2 rounded-2xl bg-gray-300 dark:bg-gray-700 text-black dark:text-white">
-        {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
+        {darkMode ? " Light Mode" : " Dark Mode"}
 
     </button>
   </div>

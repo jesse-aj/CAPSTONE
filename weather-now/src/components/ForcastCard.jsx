@@ -12,7 +12,7 @@ export default function ForecastCard({ day, temp, desc, units }) {
         <p className="text-gray-600 dark:text-gray-400 text-sm capitalize">{desc}</p>
       </div>
 
-      {/* Temperature  and handles change*/}
+      {/* Temperature  and handles degree change*/}
       <p className="text-gray-900 dark:text-gray-100 font-semibold text-lg">
         {temp}°{units === "metric" ? "C" : "F"}
       </p>
