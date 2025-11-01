@@ -42,7 +42,7 @@ const SearchBar = ({ city, setCity, handleSearch, recentCities, setRecentCities 
           </div>
 
           {/* Clears history of recent Searches */}
-          <button className="hover:underline"
+          <button className="hover:underline hover:bg-red-500"
             onClick={() => {
               setRecentCities([]);
               localStorage.removeItem("recentCities");
