@@ -3,17 +3,12 @@ const WeatherCard = ({ weather, units }) => {
   const windUnit = units === "metric" ? "m/s" : "mph";
 
   return (
-    <div className="flex justify-between flex-col  rounded-3xl bg-white/40 dark:bg-black/30 backdrop-blur-xl shadow-2xl p-10 w-full max-w-10xl 
-    min-h-[750px] ml-0 text-gray-900 dark:text-white transition-all duration-500">
-
-
-      {/* City and Time  of Weather Location*/}
+    <div className="flex h-full flex-col justify-between rounded-xl bg-black/20 dark:bg-black/30 p-6 lg:p-8 text-white backdrop-blur-md">
       <div>
-        <h1 className="text-5xl font-bold mb-2">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2">
           {weather.name}, {weather.sys.country}
         </h1>
-        {/* This displays the time and date */}
-        <p className="text-xl text-gray-700 dark:text-gray-300">
+        <p className="text-base sm:text-lg text-white/80">
           {new Date((weather.dt + weather.timezone) * 1000).toLocaleString("en-US", {
             weekday: "long",
             hour: "2-digit",
@@ -22,33 +17,28 @@ const WeatherCard = ({ weather, units }) => {
         </p>
       </div>
 
-      {/* Main Weather Information and Data */}
-      <div className="text-right">
-        <p className="text-[150px] font-extrabold leading-none">
-          {Math.round(weather.main.temp)}{tempUnit}
+      <div className="text-right my-8">
+        <p className="text-7xl sm:text-8xl lg:text-9xl font-bold leading-none">
+          {Math.round(weather.main.temp)}°
         </p>
-
-        <p className="text-3xl font-medium capitalize">
+        <p className="text-xl sm:text-2xl font-medium capitalize mt-2">
           {weather.weather[0].description}
         </p>
-        <p className="text-xl text-gray-700 dark:text-gray-300 mb-12">
+        <p className="text-base sm:text-lg text-white/80 mt-1">
           Feels like {Math.round(weather.main.feels_like)}{tempUnit}
         </p>
       </div>
 
-      {/* This Displays the wind and Humidity*/}
-      <div className="flex justify-between items-center rounded-2xl bg-black/20 dark:bg-white/10 p-6 mt-6 text-base backdrop-blur-md">
+      <div className="grid grid-cols-2 gap-4 rounded-lg bg-black/20 dark:bg-black/30 p-4 text-sm backdrop-blur-sm">
         <div className="flex items-center gap-2">
+          <span className="material-symbols-outlined text-lg">water_drop</span>
           Humidity: {weather.main.humidity}%
         </div>
-
-
         <div className="flex items-center gap-2">
+          <span className="material-symbols-outlined text-lg">air</span>
           Wind: {Math.round(weather.wind.speed)} {windUnit}
         </div>
       </div>
     </div>
   );
 };
-
-export default WeatherCard;
