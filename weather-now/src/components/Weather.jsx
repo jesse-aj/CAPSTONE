@@ -147,12 +147,7 @@ const handleRefresh = async () => {
   return (
     <div>
        <div className="bg-white text-black dark:bg-gray-900 dark:text-white p-4">
-
       <h1 className="text-5xl font-extrabold text-center text-blue-600 dark:text-blue-400 drop-shadow-lg tracking-wide">Weather Now</h1>
-
-     
-
-
              {/* This button allows users to switch between Fahrenheit and Celcius */}
                <div className="flex justify-end items-center gap-4 p-4">
             <button
@@ -160,8 +155,7 @@ const handleRefresh = async () => {
              className="bg-blue-500 text-white px-4 py-2 rounded-xl"
              > 
                 Switch to {units === "metric" ? "°F" : "°C"}
-                 </button> 
-                      
+                 </button>   
                        {/* This displays the theme Toggle */}
 
                           <ThemeToggle/>

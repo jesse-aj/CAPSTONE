@@ -1,21 +1,11 @@
-export default function ForecastCard({ day, temp, desc, units }) {
+const ForecastCard = ({ day, temp, desc, units }) => {
   return (
-    //  mini-cards for each forecast day 
-    <div className="flex items-center justify-between bg-blue-50/70 dark:bg-white/10 
-                    px-4 py-3 rounded-xl hover:bg-blue-100/70 dark:hover:bg-white/20 
-                    transition-all shadow-sm">
-
-
-      {/*  Day and Description */}
-      <div className="flex flex-col">
-        <p className="text-gray-800 dark:text-gray-100 font-medium">{day}</p>
-        <p className="text-gray-600 dark:text-gray-400 text-sm capitalize">{desc}</p>
-      </div>
-
-      {/* Temperature  and handles degree change*/}
-      <p className="text-gray-900 dark:text-gray-100 font-semibold text-lg">
+    <div className="flex items-center justify-between rounded-lg p-3 bg-[#359EFF]/10 dark:bg-[#359EFF]/20 hover:bg-[#359EFF]/20 dark:hover:bg-[#359EFF]/30 transition-colors">
+      <p className="font-medium text-slate-800 dark:text-slate-200">{day}</p>
+      <p className="text-sm text-slate-600 dark:text-slate-400 capitalize flex-1 text-center">{desc}</p>
+      <p className="text-slate-600 dark:text-slate-400 font-semibold">
         {temp}°{units === "metric" ? "C" : "F"}
       </p>
     </div>
   );
-}
+};
