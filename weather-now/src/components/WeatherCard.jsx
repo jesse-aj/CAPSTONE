@@ -9,11 +9,14 @@ const WeatherCard = ({ weather, units }) => {
           {weather.name}, {weather.sys.country}
         </h1>
         <p className="text-base sm:text-lg text-white/80">
-          {new Date((weather.dt + weather.timezone) * 1000).toLocaleString("en-US", {
-            weekday: "long",
-            hour: "2-digit",
-            minute: "2-digit",
-          })}
+          {new Date((weather.dt + weather.timezone) * 1000).toLocaleString(
+            "en-US",
+            {
+              weekday: "long",
+              hour: "2-digit",
+              minute: "2-digit",
+            }
+          )}
         </p>
       </div>
 
@@ -25,7 +28,8 @@ const WeatherCard = ({ weather, units }) => {
           {weather.weather[0].description}
         </p>
         <p className="text-base sm:text-lg text-white/80 mt-1">
-          Feels like {Math.round(weather.main.feels_like)}{tempUnit}
+          Feels like {Math.round(weather.main.feels_like)}
+          {tempUnit}
         </p>
       </div>
 
@@ -42,3 +46,5 @@ const WeatherCard = ({ weather, units }) => {
     </div>
   );
 };
+
+export default WeatherCard;
